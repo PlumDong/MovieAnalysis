@@ -50,7 +50,8 @@
 			  <div class="form-group">
 			    <label for="url" class="col-sm-2 control-label">视频地址</label>
 			    <div class="col-sm-10">
-			      <input type="url" class="form-control" id="url" name="url" placeholder="视频地址">
+			      <input type="url" class="form-control" id="url" name="url" placeholder="视频地址"
+						 value="https://v.qq.com/x/cover/zatx0zuk94d9aru.html?ptag=douban.movie">
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -69,9 +70,27 @@
 				<div class="form-group">
 			    <label for="url" class="col-sm-2 control-label">API列表</label>
 			    <div class="col-sm-10">
-			        <textarea rows="10" id="apiList" class="form-control">http://api.quanminjiexi.com/jx/?url=https://www.miguvideo.com/mgs/website/prd/detail.html?cid=655241515
-                    
-                    </textarea>
+			        <textarea rows="10" id="apiList" class="form-control">
+
+						http://api.xiaomil.com/a/index.php?url=
+
+						https://api.pangujiexi.com/player.php?url=
+
+						http://at520.cn/jx/?url=
+
+						http://api.nobij.top/jx/?url=
+
+						http://player.jidiaose.com/supapi/iframe.php?v=
+
+						http://api.91exp.com/svip/?url=
+
+						https://jx.618g.com/?url=
+
+						http://api.bbbbbb.me/ipsign/player.php?v=
+
+						http://17kyun.com/api.php?url=
+
+					</textarea>
 			    </div>
 			  </div>
 	    	</div>
@@ -91,7 +110,9 @@
 		    $("#api").children().remove();
 			var apilist = $("#apiList").val().split(/\r?\n/);
 			for(var i=0;i<apilist.length;i++){
-				$("#api").append("<option>"+apilist[i]+"</option>");
+				if (apilist[i].trim().length>0){
+					$("#api").append("<option>"+apilist[i].trim()+"</option>");
+				}
 			}
 	    }
 		$("#apiList").blur(function(){
@@ -109,7 +130,7 @@
 				alert('无效API！');
 				return;
 			}
-			window.open($api+$url);
+			document.getElementById("iframe").src = ($api+$url);
 		});
 	    function init(){
 		    var ckapi = $.cookie("apiList");
@@ -124,7 +145,6 @@
             window.location.reload();
         }
         function setUrl(url){
-
             document.getElementById("reportFrame").src = url;
         }
 

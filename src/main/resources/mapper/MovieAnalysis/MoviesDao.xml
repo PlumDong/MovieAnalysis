@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aprilia.modules.MovieAnalysis.dao.MoviesDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.aprilia.modules.MovieAnalysis.entity.MoviesEntity" id="moviesMap">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="slug" column="slug"/>
+        <result property="name" column="name"/>
+        <result property="alias" column="alias"/>
+        <result property="cover" column="cover"/>
+        <result property="year" column="year"/>
+        <result property="regions" column="regions"/>
+        <result property="genres" column="genres"/>
+        <result property="languages" column="languages"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="officialSite" column="official_site"/>
+        <result property="directors" column="directors"/>
+        <result property="actors" column="actors"/>
+        <result property="storyline" column="storyline"/>
+        <result property="mins" column="mins"/>
+        <result property="recommendTip" column="recommend_tip"/>
+        <result property="tags" column="tags"/>
+        <result property="avgScore" column="avg_score"/>
+        <result property="imdbId" column="imdb_id"/>
+        <result property="imdbScore" column="imdb_score"/>
+        <result property="imdbVotes" column="imdb_votes"/>
+        <result property="doubanId" column="douban_id"/>
+        <result property="doubanScore" column="douban_score"/>
+        <result property="doubanVotes" column="douban_votes"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+</mapper>
