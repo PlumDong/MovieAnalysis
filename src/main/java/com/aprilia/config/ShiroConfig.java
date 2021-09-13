@@ -63,6 +63,7 @@ public class ShiroConfig {
 
         filterMap.put("/movie/**", "anon");
         filterMap.put("/movies/*", "anon");
+        filterMap.put("/playaddress/*", "anon");
         //所有请求需要oauth2认证
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
