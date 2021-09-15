@@ -26,7 +26,7 @@ import com.aprilia.common.utils.R;
  * @date 2021-09-05 18:19:40
  */
 @RestController
-@RequestMapping("MovieAnalysis/movie")
+@RequestMapping("movie")
 public class MovieController {
     @Autowired
     private MovieService movieService;
@@ -35,7 +35,6 @@ public class MovieController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("MovieAnalysis:movie:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = movieService.queryPage(params);
 

@@ -50,10 +50,12 @@ public class ShiroConfig {
         shiroFilter.setFilters(filters);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
+        filterMap.put("/sys/login", "anon");
+
+
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/druid/**", "anon");
         filterMap.put("/app/**", "anon");
-        filterMap.put("/sys/login", "anon");
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/v2/api-docs", "anon");
         filterMap.put("/swagger-ui.html", "anon");
@@ -64,6 +66,9 @@ public class ShiroConfig {
         filterMap.put("/movie/**", "anon");
         filterMap.put("/movies/*", "anon");
         filterMap.put("/playaddress/*", "anon");
+        filterMap.put("/parsing/*", "anon");
+
+
         //所有请求需要oauth2认证
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);

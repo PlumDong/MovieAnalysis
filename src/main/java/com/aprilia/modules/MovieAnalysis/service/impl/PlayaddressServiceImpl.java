@@ -15,11 +15,17 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 @Service("playaddressService")
 public class PlayaddressServiceImpl extends ServiceImpl<PlayaddressDao, PlayaddressEntity> implements PlayaddressService {
 
+    private final static String movieId = "movie_id";
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<PlayaddressEntity> wrapper = new QueryWrapper<>();
+        if (params.containsKey(movieId)) {
+            wrapper.eq(movieId,params.get(movieId));
+        }
+
         IPage<PlayaddressEntity> page = this.page(
-                new Query<PlayaddressEntity>().getPage(params),
-                new QueryWrapper<PlayaddressEntity>()
+                new Query<PlayaddressEntity>().getPage(params),wrapper
         );
 
         return new PageUtils(page);

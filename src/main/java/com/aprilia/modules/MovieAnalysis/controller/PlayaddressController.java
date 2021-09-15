@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-09-13 18:36:25
  */
 @RestController
-@RequestMapping("MovieAnalysis/playaddress")
+@RequestMapping("playaddress")
 public class PlayaddressController {
     @Autowired
     private PlayaddressService playaddressService;
@@ -36,23 +36,10 @@ public class PlayaddressController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("MovieAnalysis:playaddress:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = playaddressService.queryPage(params);
 
         return R.ok().put("page", page);
-    }
-
-
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{id}")
-    @RequiresPermissions("MovieAnalysis:playaddress:info")
-    public R info(@PathVariable("id") Long id){
-		PlayaddressEntity playaddress = playaddressService.getById(id);
-
-        return R.ok().put("playaddress", playaddress);
     }
     /**
      * 获取播放地址
@@ -65,6 +52,18 @@ public class PlayaddressController {
 
         return R.ok().put("playaddress", playaddress);
     }
+
+    /**
+     * 信息
+     */
+    @RequestMapping("/info/{id}")
+    @RequiresPermissions("MovieAnalysis:playaddress:info")
+    public R info(@PathVariable("id") Long id){
+		PlayaddressEntity playaddress = playaddressService.getById(id);
+
+        return R.ok().put("playaddress", playaddress);
+    }
+
 
     /**
      * 保存

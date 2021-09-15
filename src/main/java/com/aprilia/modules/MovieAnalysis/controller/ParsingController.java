@@ -26,7 +26,7 @@ import com.aprilia.common.utils.R;
  * @date 2021-09-05 18:19:40
  */
 @RestController
-@RequestMapping("MovieAnalysis/parsing")
+@RequestMapping("parsing")
 public class ParsingController {
     @Autowired
     private ParsingService parsingService;
@@ -35,7 +35,6 @@ public class ParsingController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("MovieAnalysis:parsing:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = parsingService.queryPage(params);
 

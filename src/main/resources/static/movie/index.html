@@ -39,32 +39,32 @@
                 width='100%' height='600' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>
         
 	    <hr />
-	    <div class="main">
-			<form class="form-horizontal" method="post">
-			  <div class="form-group">
-			    <label for="api" class="col-sm-2 control-label">API地址</label>
-			    <div class="col-sm-10">
-				  <select id="api" name="api" class="form-control"></select>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="url" class="col-sm-2 control-label">视频地址</label>
-			    <div class="col-sm-10">
-			      <input type="url" class="form-control" id="url" name="url" placeholder="视频地址"
-						 value="https://v.qq.com/x/cover/zatx0zuk94d9aru.html?ptag=douban.movie">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="button" id="play" class="btn btn-primary">解 析</button>
-			    </div>
-			  </div>
-			</form>
-		</div>
-        
+			<div class="main">
+				<form class="form-horizontal" method="post">
+				  <div class="form-group">
+					<label for="api" class="col-sm-2 control-label">API地址</label>
+					<div class="col-sm-10">
+					  <select id="api" name="api" class="form-control"></select>
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label for="url" class="col-sm-2 control-label">视频地址</label>
+					<div class="col-sm-10">
+						<select id="url" name="url" class="form-control"></select>
+					  <!--input type="url" class="form-control" id="url" name="url" placeholder="视频地址"
+							 value="https://v.qq.com/x/cover/zatx0zuk94d9aru.html?ptag=douban.movie"-->
+					</div>
+				  </div>
+				  <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					  <button type="button" id="play" class="btn btn-primary">解 析</button>
+					</div>
+				  </div>
+				</form>
+			</div>
         <hr />
 			
-	    <div class="main">
+	    <div class="main" style="display:none;">
 			<h4>如播放地址失效，可重新设置API列表。<a href="https://bak.yantuz.cn:8000/466.html" target="_blank">API获取</a>/<a href="javascript:setDefault();">恢复默认</a></h4>
 			<div class="form-horizontal">
 				<div class="form-group">
@@ -119,15 +119,15 @@
 			setApi();
 			$.cookie("apiList",$("#apiList").val());
 		});
-		$("#play").click(function(){
+		$("#play").click(function(b=true){
 			$api = $("#api").val();
 			$url = $("#url").val();
 			if($url == "" || $url == null || !/^http.*$/.test($url)){
-				alert('视频地址不正确！');
+				if (b) alert('视频地址不正确！');
 				return;
 			}
 			if($url == "" || $url == null || !/^http.*=$/.test($api)){
-				alert('无效API！');
+				if (b) alert('无效API！');
 				return;
 			}
 			document.getElementById("iframe").src = ($api+$url);
@@ -138,7 +138,12 @@
 			    $("#apiList").val(ckapi);
 		    }
 		    setApi();
-	    }
+			movieid = getQueryVariable("movieid");
+			if (movieid != null){
+				getPlayAddress(movieid)
+			}
+			getParsing()
+		}
 	    init();
         function setDefault(){
             $.cookie("apiList","");
@@ -147,6 +152,62 @@
         function setUrl(url){
             document.getElementById("reportFrame").src = url;
         }
+		function getQueryVariable(variable)
+		{
+			var query = window.location.search.substring(1);
+			var vars = query.split("&");
+			for (var i=0;i<vars.length;i++) {
+				var pair = vars[i].split("=");
+				if(pair[0] == variable){return pair[1];}
+			}
+			return null;
+		}
+		function getPlayAddress(movieid) {
+        	console.log(movieid)
+			$.ajax({
+				url: '../playaddress/list',
+				method:'GET',
+				dataType: 'json',
+				data: {
+					'movie_id':movieid
+				},
+				success: function(res){
+					data = res.page.list
+					console.log(data)
+					setdata(data,"url")
+
+				},
+				error: function(){
+
+				}
+			})
+		}
+		function getParsing() {
+			$.ajax({
+				url: '../parsing/list',
+				method:'GET',
+				dataType: 'json',
+				data: {
+
+				},
+				success: function(res){
+					data = res.page.list
+					console.log(data)
+					setdata(data,"api")
+
+				},
+				error: function(){
+
+				}
+			})
+		}
+		function setdata(apilist,id){
+			$("#"+id).children().remove();
+			for(var i=0;i<apilist.length;i++){
+				$("#"+id).append("<option value="+apilist[i].url+">"+apilist[i].name+"</option>");
+			}
+			$("#play").click(false)
+		}
 
     </script>
     <script>

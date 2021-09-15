@@ -99,12 +99,13 @@
 <script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript'>
     function addmovie(movielist){
+        console.log(movielist)
         for (var m in movielist){
             var item = movielist[m]
             console.log(movielist[m])
             document.getElementById("mymovielist").innerHTML +=
                 "<li class='item'>\
-                    <a class='js-tongjic' href='javascript:;' title='"+item.name+"' target='_blank'>\
+                    <a class='js-tongjic' onclick=\"gotolook("+item.doubanId+")\" href='javascript:void(0)' title='"+item.name+"'>\
                         <div class='cover g-playicon'>\
                             <img src='https://images.weserv.nl/?url="+item.cover.substring(8)+"' alt='"+item.name+"' />\
                             <span class='pay'>推荐</span><span class='hint'>"+item.name+"</span>\
@@ -123,7 +124,10 @@
         }
 
    }
-
+    function gotolook(id){
+        console.log('doubanid=',id)
+        window.location.assign('http://'+window.location.host+"/MovieAnalysis/movie/index.html?movieid="+id)
+    }
     function init(){
         $.ajax({
             url: '../movies/list',
