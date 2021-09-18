@@ -129,12 +129,14 @@
         window.location.assign('http://'+window.location.host+"/MovieAnalysis/movie/index.html?movieid="+id)
     }
     function init(){
+
         $.ajax({
             url: '../movies/list',
             method:'GET',
             dataType: 'json',
             data: {
-
+                page: 1,
+                limit: 100,
             },
             success: function(res){
                 console.log(res)
@@ -144,6 +146,8 @@
 
             }
         })
+
+
     }
 
     init()
